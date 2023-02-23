@@ -22,6 +22,7 @@ public class CityService {
 	@Autowired
 	private CityRepository repository;
 	
+	@Transactional(readOnly = true)
 	public List<CityDTO> findAll() { 
 		List<City> list = repository.findAll(Sort.by("name"));
 		return list.stream().map(x -> new CityDTO(x))
@@ -36,6 +37,7 @@ public class CityService {
 		return new CityDTO(entity);
 	}
 	
+	
 	public void delete(Long id) { 
 		try { 
 			repository.deleteById(id);
@@ -45,4 +47,5 @@ public class CityService {
 			throw new DatabaseException("Integrity violation.");
 		}
 	}
+
 }
